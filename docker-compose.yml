@@ -1,0 +1,37 @@
+version: '3.9'
+
+services:
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=user
+      - RABBITMQ_DEFAULT_PASS=password
+    networks:
+      - messaging
+
+
+  messaging:
+    image: maven:3.9-amazoncorretto-19
+    container_name: messaging
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+      - maven-repo:/root/.m2
+    working_dir: /app
+    command: mvn spring-boot:run
+    depends_on:
+      - rabbitmq
+    networks:
+      - messaging
+    # Define the RabbitMQ host
+    # environment:
+    #   - 
+volumes:
+  maven-repo:
+
+networks:
+  messaging:
