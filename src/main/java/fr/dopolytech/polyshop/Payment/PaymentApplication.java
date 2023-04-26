@@ -14,7 +14,7 @@ public class PaymentApplication {
   public static void main(String[] args) throws InterruptedException {
     SpringApplication.run(PaymentApplication.class, args);
 
-    logger.info("Waiting for messages from inventory queue...");
+    logger.info("Waiting for messages from payment queue...");
 
     // Wait indefinitely for messages to be received
     synchronized (PaymentApplication.class) {

@@ -5,9 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -29,9 +27,9 @@ public class PaymentService  {
     this.shippingQueue = shippingQueue;
   }
 
-  public void receiveMessage(byte[] message) {
-    String messageBody = new String(message);
-    logger.info("Received message from inventory queue: " + messageBody);
+  public void receiveMessage(String messageBody) {
+    // String messageBody = new String(message);
+    logger.info("Received message from payment queue: " + messageBody);
     try {
       ObjectMapper mapper = new ObjectMapper();
       Payment payment =  mapper.readValue(messageBody, Payment.class);
