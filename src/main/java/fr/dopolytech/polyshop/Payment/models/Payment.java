@@ -1,5 +1,6 @@
 package fr.dopolytech.polyshop.Payment.models;
 
+import java.util.List;
 import java.util.UUID;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -7,17 +8,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Payment {
   public String id;
-  public String orderId;
+  public long orderId;
+  public List<ProductItem> products;
 
   public Payment() {
   }
 
-  public Payment(String orderId) {
+  public Payment(long orderId, List<ProductItem> products) {
     this.id = UUID.randomUUID().toString();
     this.orderId = orderId;
+    this.products = products;
   }
 
-  public Payment(String id, String orderId) {
+  public Payment(String id, long orderId) {
     this.id = id;
     this.orderId = orderId;
   }
